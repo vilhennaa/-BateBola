@@ -1,41 +1,31 @@
 package com.cao.batebola.ui.screens
 
-import android.icu.text.CaseMap.Title
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material3.BottomAppBar
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.AddCircle
+
 import androidx.compose.material3.DrawerState
-import androidx.compose.material3.FloatingActionButton
+
 import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.cao.batebola.ui.screens.utils.TopBarMin
+import com.cao.batebola.ui.screens.utils.TopBar
 
-object MainScreen {
-    val TELA_ROTA_UM_X = "tela_um_x"
-    val TELA_ROTA_UM_Y = "tela_um_y"
-    val TELA_ROTA_UM_Z = "tela_um_z"
+object TelaUm {
+    val TELA_UM_A_ROUTE = "t1a"
+    val TELA_UM_B_ROUTE = "t1b"
 }
 
 @Composable
@@ -44,67 +34,59 @@ fun MainScreen(drawerState: DrawerState) {
     val navController = rememberNavController()
 
     Scaffold(
-        topBar = { TopBarMin(drawerState) },
+        topBar = { TopBar(drawerState) },
         content = { padding ->
-            Conteudo(padding) },
-        floatingActionButton = { BottonAdd() },
-        bottomBar = { BottonBarMin() }
+            NavHost(
+                navController = navController,
+                startDestination = TelaUm.TELA_UM_A_ROUTE
+            ) {
+                composable(TelaUm.TELA_UM_A_ROUTE) {
+                    TelaUmA(padding)
+                }
+                composable(TelaUm.TELA_UM_B_ROUTE) {
+                    TelaUmB(padding)
+                }
+
+            }
+        },
+        bottomBar = { BottomAppBarMinima(navController) }
     )
 }
 
 @Composable
-private fun BottonBarMin() {
-    BottomAppBar(
-        containerColor = Color.Yellow
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
-        ) {
-            Icon(
-                imageVector = Icons.Default.Check,
-                contentDescription = "",
-                modifier = Modifier.size(40.dp)
-            )
-            Icon(
-                imageVector = Icons.Default.Face,
-                contentDescription = "",
-                modifier = Modifier.size(40.dp)
-            )
-            Icon(
-                imageVector = Icons.Default.Clear,
-                contentDescription = "",
-                modifier = Modifier.size(40.dp)
-            )
-        }
-    }
-}
+private fun BottomAppBarMinima(navController: NavController) {
 
-@Composable
-private fun BottonAdd() {
-    FloatingActionButton(onClick = { }) {
-        Icon(
-            imageVector = Icons.Default.Add,
-            contentDescription = "add"
+    NavigationBar(containerColor = Color(0xFF064D0C)) {
+        NavigationBarItem(
+            selected = false,
+            onClick = {
+                navController.navigate(TelaUm.TELA_UM_A_ROUTE)
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = "A",
+                    modifier = Modifier.size(40.dp),
+                    Color.White
+                )
+            },
+            label = { Text(text = "LOGIN", color = Color.White) }
         )
-    }
-}
+        NavigationBarItem(
+            selected = false,
+            onClick = {
+                navController.navigate(TelaUm.TELA_UM_B_ROUTE)
+            }, icon = {
+                Icon(
+                    imageVector = Icons.Default.AddCircle,
+                    contentDescription = "B",
+                    modifier = Modifier.size(40.dp),
+                    Color.White
+                )
+            },
+            label = { Text(text = "CADASTRAR", color = Color.White) }
+        )
 
-@Composable
-private fun Conteudo(padding: PaddingValues) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "Bate Bola",
-            modifier = Modifier
-                .padding(padding),
-            fontSize = 50.sp
-        )
-        Text(text = "tela principal")
     }
 }
 
