@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -28,9 +29,11 @@ fun TelaUmB(padding: PaddingValues) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        val cpfState = remember { mutableStateOf("") }
+        val usernameState = remember { mutableStateOf("") }
+        val passwordState = remember { mutableStateOf("") }
 
-        ) {
-        val textState = remember { mutableStateOf("") }
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = "Cadastro",
@@ -42,8 +45,8 @@ fun TelaUmB(padding: PaddingValues) {
             fontSize = 20.sp
         )
         TextField(
-            value = textState.value,
-            onValueChange = { textState.value = it },
+            value = cpfState.value,
+            onValueChange = { cpfState.value = it },
             label = { Text("CPF") }
         )
         Spacer(modifier = Modifier.height(20.dp))
@@ -52,8 +55,8 @@ fun TelaUmB(padding: PaddingValues) {
             fontSize = 20.sp
         )
         TextField(
-            value = textState.value,
-            onValueChange = { textState.value = it },
+            value = usernameState.value,
+            onValueChange = { usernameState.value = it },
             label = { Text("Username") }
         )
         Spacer(modifier = Modifier.height(20.dp))
@@ -62,9 +65,10 @@ fun TelaUmB(padding: PaddingValues) {
             fontSize = 20.sp
         )
         TextField(
-            value = textState.value,
-            onValueChange = { textState.value = it },
-            label = { Text("Senha") }
+            value = passwordState.value,
+            onValueChange = { passwordState.value = it },
+            label = { Text("Senha") },
+            visualTransformation = PasswordVisualTransformation()
         )
         Spacer(modifier = Modifier.height(50.dp))
         TextButton(
@@ -74,13 +78,10 @@ fun TelaUmB(padding: PaddingValues) {
             onClick = {
 
             }) {
-
             Text(
                 text = "CADASTRAR", fontSize = 30.sp,
                 color = Color.White
             )
         }
-
-
     }
 }
