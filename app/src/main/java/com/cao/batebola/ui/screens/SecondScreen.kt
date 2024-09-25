@@ -43,18 +43,18 @@ fun SecondScreeen(drawerState: DrawerState) {
 
             val afazeres = listOf(
                 Afazer(
-                    titulo = "Time do Felipe Fodastico",
+                    titulo = "Time do Felipe",
                     descricao = "Profissional",
                     id = 1
                 ),
                 Afazer(
-                    titulo = "Time do manfre aniversariante",
-                    descricao = "Maizomeno",
+                    titulo = "Time do Manfré",
+                    descricao = "Semi-Profissional",
                     id = 2
                 ),
                 Afazer(
-                    titulo = "Time do batman boiola",
-                    descricao = "Ruim que só a porra",
+                    titulo = "Time do Gustavo",
+                    descricao = "Amador",
                     id = 3
                 )
             )
