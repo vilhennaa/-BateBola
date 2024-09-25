@@ -25,13 +25,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cao.batebola.ui.screens.utils.TopBarMin
+import com.cao.batebola.ui.screens.utils.TopBar
+
 
 
 @Composable
 fun ThirdScreen(drawerState: DrawerState) {
     Scaffold(
-        topBar = { TopBarMin(drawerState) },
+        topBar = { TopBar(drawerState) },
         content = { padding -> Conteudo3(padding) },
         floatingActionButton = { FloatButton() },
         bottomBar = { BottonBarMin() }
@@ -66,15 +67,7 @@ private fun BottonBarMin() {
     }
 }
 
-@Composable
-private fun FloatButton() {
-    FloatingActionButton(onClick = { }) {
-        Icon(
-            imageVector = Icons.Default.Add,
-            contentDescription = "+"
-        )
-    }
-}
+
 
 @Composable
 private fun Conteudo3(padding: PaddingValues) {

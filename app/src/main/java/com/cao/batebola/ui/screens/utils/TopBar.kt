@@ -14,34 +14,37 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBarMin(drawerState: DrawerState) {
+fun TopBar(drawerState: DrawerState){
 
-    val escopo = rememberCoroutineScope()
+    val coroutineScope = rememberCoroutineScope()
 
     TopAppBar(
         navigationIcon = {
             IconButton(onClick = {
-                escopo.launch {
+                coroutineScope.launch {
                     drawerState.open()
                 }
             }) {
                 Icon(
                     imageVector = Icons.Default.Menu,
-                    contentDescription = "Menu",
-                    tint = Color.Black,
+                    contentDescription = "=",
+                    tint = Color.White,
                     modifier = Modifier.size(40.dp))
             }
         },
         title = {
-            Text(text = "Bate Bola",
-                fontSize = 40.sp) },
-        colors = TopAppBarDefaults.topAppBarColors(Color.Yellow)
+            Text(text = "Bate Bola ⚽", fontSize = 40.sp,
+                color = Color.White,
+                fontWeight = FontWeight(600)
+            )
+        },
+        colors = TopAppBarDefaults.topAppBarColors(Color(0xFF064D0C))
     )
 }
-
