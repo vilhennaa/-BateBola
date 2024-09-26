@@ -10,6 +10,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
@@ -24,9 +28,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -43,6 +49,7 @@ object PlannerRotas {
     val TELA_UM_ROTA = "tela_um"
     val TELA_DOIS_ROTA = "tela_dois"
     val TELA_TRES_ROTA = "tela_tres"
+    val TELA_PERFIL_ROTA = "tela_perfil"
 }
 
 
@@ -65,7 +72,7 @@ fun BateBolaApp(){
         content = {
             NavHost(
                 navController = navController,
-                startDestination = PlannerRotas.TELA_UM_ROTA)
+                startDestination = PlannerRotas.TELA_DOIS_ROTA)
             {
                 composable(PlannerRotas.TELA_UM_ROTA) {
                     MainScreen(drawerState)
@@ -75,6 +82,9 @@ fun BateBolaApp(){
                 }
                 composable(PlannerRotas.TELA_TRES_ROTA) {
                     ThirdScreen(drawerState)
+                }
+                composable(PlannerRotas.TELA_PERFIL_ROTA) {
+                    ProfileScreen(drawerState)
                 }
             }
         }
@@ -90,11 +100,12 @@ private fun DrawerContent(
     val coroutineScope = rememberCoroutineScope()
 
     val currentBack by navController.currentBackStackEntryAsState()
-    val rotaAtual = currentBack?.destination?.route ?: PlannerRotas.TELA_UM_ROTA
+    val rotaAtual = currentBack?.destination?.route ?: PlannerRotas.TELA_DOIS_ROTA
 
     val ehRotaUm = rotaAtual == PlannerRotas.TELA_UM_ROTA
     val ehRotaDois = rotaAtual == PlannerRotas.TELA_DOIS_ROTA
     val ehRotaTres = rotaAtual == PlannerRotas.TELA_TRES_ROTA
+    val ehRotaPerfil = rotaAtual == PlannerRotas.TELA_PERFIL_ROTA
 
     Column(
         modifier = Modifier
@@ -105,24 +116,7 @@ private fun DrawerContent(
     ) {
         Spacer(modifier = Modifier.height(70.dp))
 
-        TextButton(
-            colors = ButtonDefaults.buttonColors(
-                containerColor = getColorMenu(ehRotaUm)
-            ),
-            onClick = {
-                navController.navigate(PlannerRotas.TELA_UM_ROTA)
-                coroutineScope.launch {
-                    drawerState.close()
-                }
-            }) {
-            Icon(
-                imageVector = Icons.Default.Close,
-                contentDescription = "b",
-                modifier = Modifier.size(40.dp)
-            )
-            Text(text = "Login", fontSize = 30.sp,
-                color = getColorTexto(ehRotaUm))
-        }
+
 
         TextButton(
             colors = ButtonDefaults.buttonColors(
@@ -136,13 +130,37 @@ private fun DrawerContent(
             }) {
 
             Icon(
-                    imageVector = Icons.Default.Close,
-                    contentDescription = "b",
-                    modifier = Modifier.size(40.dp)
+                imageVector = Icons.Default.Home,
+                contentDescription = "b",
+                modifier = Modifier.size(40.dp),
+                Color.Black
             )
 
-            Text(text = "Times Cadastrados", fontSize = 30.sp,
-                color = getColorTexto(ehRotaDois))
+            Text(
+                text = "Times cadastrados",
+                fontSize = 30.sp,
+
+                color = getColorTexto(ehRotaDois)
+            )
+        }
+        TextButton(
+            colors = ButtonDefaults.buttonColors(
+                containerColor = getColorMenu(ehRotaUm)
+            ),
+            onClick = {
+                navController.navigate(PlannerRotas.TELA_UM_ROTA)
+                coroutineScope.launch {
+                    drawerState.close()
+                }
+            }) {
+            Icon(
+                imageVector = Icons.Default.ExitToApp,
+                contentDescription = "b",
+                modifier = Modifier.size(40.dp),
+                Color.Black
+            )
+            Text(text = "Login/Cadastro", fontSize = 25.sp,
+                color = getColorTexto(ehRotaUm))
         }
 
         TextButton(
@@ -156,12 +174,32 @@ private fun DrawerContent(
                 }
             }) {
             Icon(
-                imageVector = Icons.Default.Close,
+                imageVector = Icons.Default.Star,
                 contentDescription = "b",
-                modifier = Modifier.size(40.dp)
+                modifier = Modifier.size(40.dp),
+                Color.Black
             )
-            Text(text = "Tela 3", fontSize = 30.sp,
+            Text(text = "Seu time", fontSize = 30.sp,
                 color = getColorTexto(ehRotaTres))
+        }
+        TextButton(
+            colors = ButtonDefaults.buttonColors(
+                containerColor = getColorMenu(ehRotaPerfil)
+            ),
+            onClick = {
+                navController.navigate(PlannerRotas.TELA_PERFIL_ROTA)
+                coroutineScope.launch {
+                    drawerState.close()
+                }
+            }) {
+            Icon(
+                imageVector = Icons.Default.Person,
+                contentDescription = "b",
+                modifier = Modifier.size(40.dp),
+                Color.Black
+            )
+            Text(text = "Perfil", fontSize = 30.sp,
+                color = getColorTexto(ehRotaPerfil))
         }
     }
 }

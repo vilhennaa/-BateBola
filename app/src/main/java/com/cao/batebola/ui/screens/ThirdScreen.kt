@@ -4,16 +4,23 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -27,64 +34,114 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cao.batebola.ui.screens.utils.TopBar
 
-
-
 @Composable
 fun ThirdScreen(drawerState: DrawerState) {
     Scaffold(
         topBar = { TopBar(drawerState) },
-        content = { padding -> Conteudo3(padding) },
-        floatingActionButton = { FloatButton() },
-        bottomBar = { BottonBarMin() }
+        content = { padding ->
+
+            val jogadores = listOf(
+                Jogadores(
+                    titulo = "Felipe",
+                    descricao = "Atacante",
+                    id = 1
+                ),
+                Jogadores(
+                    titulo = "Manfré",
+                    descricao = "Meio-campo",
+                    id = 2
+                ),
+                Jogadores(
+                    titulo = "Gustavo",
+                    descricao = "Goleiro",
+                    id = 3
+                ),
+                Jogadores(
+                    titulo = "Joao",
+                    descricao = "Zagueiro",
+                    id = 4
+                ),
+                Jogadores(
+                    titulo = "Paulinho",
+                    descricao = "Volante",
+                    id = 5
+                ),
+                Jogadores(
+                    titulo = "Jhonathan",
+                    descricao = "Meio-campo",
+                    id = 6
+                )
+
+            )
+
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top,
+                contentPadding = PaddingValues(16.dp)
+            ) {
+                items(jogadores) { jogador -> // Atualizado para "jogadores"
+                    JogadorCard(jogador) // Atualizado para "JogadorCard"
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+            }
+        },
+        floatingActionButton = { FloatButtonThird() }
     )
 }
 
 @Composable
-private fun BottonBarMin() {
-    BottomAppBar(
-        containerColor = Color.Yellow
+fun JogadorCard(jogador: Jogadores) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(3.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color(0xFFF5F5F5)
+        ),
+        elevation = CardDefaults.cardElevation(8.dp)
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
         ) {
-            Icon(
-                imageVector = Icons.Default.Check,
-                contentDescription = "",
-                modifier = Modifier.size(40.dp)
+            Text(
+                text = "Nome: ${jogador.titulo}",
+                fontSize = 24.sp,
+                color = Color.Black
             )
-            Icon(
-                imageVector = Icons.Default.Face,
-                contentDescription = "",
-                modifier = Modifier.size(40.dp)
+            Text(
+                text = "Posição: ${jogador.descricao}",
+                fontSize = 16.sp,
+                color = Color.DarkGray
             )
-            Icon(
-                imageVector = Icons.Default.Clear,
-                contentDescription = "",
-                modifier = Modifier.size(40.dp)
+            Text(
+                text = "ID: ${jogador.id}",
+                fontSize = 14.sp,
+                color = Color.Gray
             )
         }
     }
 }
-
-
-
 @Composable
-private fun Conteudo3(padding: PaddingValues) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+fun FloatButtonThird() {
+    FloatingActionButton(
+        onClick = { /*  */ },
+        containerColor = Color(0xFF064D0C)
     ) {
-        Text(
-            text = "Bate Bola",
-            modifier = Modifier
-                .padding(padding),
-            fontSize = 50.sp
+        Icon(
+            imageVector = Icons.Filled.Edit,
+            contentDescription = "Adicionar tarefa",
+            tint = Color.White
         )
-        Text(text = "tela 3")
     }
 }
 
-
+data class Jogadores(
+    var titulo: String,
+    var descricao: String,
+    var id: Int? = null
+)
