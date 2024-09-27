@@ -41,18 +41,18 @@ fun SecondScreeen(drawerState: DrawerState) {
         topBar = { TopBar(drawerState) },
         content = { padding ->
 
-            val times = listOf(
-                Times(
+            val afazeres = listOf(
+                Afazer(
                     titulo = "Time do Felipe",
                     descricao = "Profissional",
                     id = 1
                 ),
-                Times(
+                Afazer(
                     titulo = "Time do Manfré",
                     descricao = "Semi-Profissional",
                     id = 2
                 ),
-                Times(
+                Afazer(
                     titulo = "Time do Gustavo",
                     descricao = "Amador",
                     id = 3
@@ -67,8 +67,8 @@ fun SecondScreeen(drawerState: DrawerState) {
                 verticalArrangement = Arrangement.Top,
                 contentPadding = PaddingValues(16.dp)
             ) {
-                items(times) { time ->
-                    AfazerCard(time)
+                items(afazeres) { afazer ->
+                    AfazerCard(afazer)
                     Spacer(modifier = Modifier.height(16.dp))
                 }
             }
@@ -78,7 +78,7 @@ fun SecondScreeen(drawerState: DrawerState) {
 }
 
 @Composable
-fun AfazerCard(times: Times) {
+fun AfazerCard(afazer: Afazer) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -94,17 +94,17 @@ fun AfazerCard(times: Times) {
                 .padding(16.dp)
         ) {
             Text(
-                text = "Título: ${times.titulo}",
+                text = "Título: ${afazer.titulo}",
                 fontSize = 24.sp,
                 color = Color.Black
             )
             Text(
-                text = "Descrição: ${times.descricao}",
+                text = "Descrição: ${afazer.descricao}",
                 fontSize = 16.sp,
                 color = Color.DarkGray
             )
             Text(
-                text = "ID: ${times.id}",
+                text = "ID: ${afazer.id}",
                 fontSize = 14.sp,
                 color = Color.Gray
             )
@@ -127,8 +127,9 @@ fun FloatButton() {
 }
 
 
-data class Times(
+data class Afazer(
     var titulo: String,
     var descricao: String,
+    var concluido: Boolean = false,
     var id: Int? = null
 )
