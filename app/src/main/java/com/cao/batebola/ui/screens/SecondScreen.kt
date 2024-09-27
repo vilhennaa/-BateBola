@@ -42,25 +42,20 @@ fun SecondScreeen(drawerState: DrawerState) {
 
             val afazeres = listOf(
                 Afazer(
-                    titulo = "Bar sem lona",
+                    titulo = "Time do Felipe",
                     descricao = "Profissional",
                     id = 1
                 ),
                 Afazer(
-                    titulo = "Baile de munique",
+                    titulo = "Time do Manfré",
                     descricao = "Semi-Profissional",
                     id = 2
                 ),
                 Afazer(
-                    titulo = "Manchester Shift",
+                    titulo = "Time do Gustavo",
                     descricao = "Amador",
                     id = 3
-                ),
-                Afazer(
-                    titulo = "Galaticos",
-                    descricao = "Iniciante",
-                    id = 4
-            )
+                )
             )
 
             LazyColumn(
