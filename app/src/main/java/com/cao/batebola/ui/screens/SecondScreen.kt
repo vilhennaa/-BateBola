@@ -35,7 +35,6 @@ import com.cao.batebola.ui.screens.utils.TopBar
 @Composable
 fun SecondScreeen(drawerState: DrawerState) {
 
-    val navController = rememberNavController()
 
     Scaffold(
         topBar = { TopBar(drawerState) },
