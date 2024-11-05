@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
@@ -27,12 +26,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -40,18 +36,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 
-import com.cao.batebola.R
-import com.cao.batebola.ui.screens.MainScreen
-import com.cao.batebola.ui.screens.ThirdScreen
 import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
 
-object PlannerRotas {
+object BateBotaRoutes {
     val TELA_UM_ROTA = "tela_um"
     val TELA_DOIS_ROTA = "tela_dois"
     val TELA_TRES_ROTA = "tela_tres"
     val TELA_PERFIL_ROTA = "tela_perfil"
 }
-
 
 @Preview(
     device = Devices.PIXEL
@@ -72,18 +65,18 @@ fun BateBolaApp(){
         content = {
             NavHost(
                 navController = navController,
-                startDestination = PlannerRotas.TELA_DOIS_ROTA)
+                startDestination = BateBotaRoutes.TELA_DOIS_ROTA)
             {
-                composable(PlannerRotas.TELA_UM_ROTA) {
+                composable(BateBotaRoutes.TELA_UM_ROTA) {
                     MainScreen(drawerState)
                 }
-                composable(PlannerRotas.TELA_DOIS_ROTA) {
+                composable(BateBotaRoutes.TELA_DOIS_ROTA) {
                     SecondScreeen(drawerState)
                 }
-                composable(PlannerRotas.TELA_TRES_ROTA) {
+                composable(BateBotaRoutes.TELA_TRES_ROTA) {
                     ThirdScreen(drawerState)
                 }
-                composable(PlannerRotas.TELA_PERFIL_ROTA) {
+                composable(BateBotaRoutes.TELA_PERFIL_ROTA) {
                     ProfileScreen(drawerState)
                 }
             }
@@ -100,12 +93,12 @@ private fun DrawerContent(
     val coroutineScope = rememberCoroutineScope()
 
     val currentBack by navController.currentBackStackEntryAsState()
-    val rotaAtual = currentBack?.destination?.route ?: PlannerRotas.TELA_DOIS_ROTA
+    val rotaAtual = currentBack?.destination?.route ?: BateBotaRoutes.TELA_DOIS_ROTA
 
-    val ehRotaUm = rotaAtual == PlannerRotas.TELA_UM_ROTA
-    val ehRotaDois = rotaAtual == PlannerRotas.TELA_DOIS_ROTA
-    val ehRotaTres = rotaAtual == PlannerRotas.TELA_TRES_ROTA
-    val ehRotaPerfil = rotaAtual == PlannerRotas.TELA_PERFIL_ROTA
+    val ehRotaUm = rotaAtual == BateBotaRoutes.TELA_UM_ROTA
+    val ehRotaDois = rotaAtual == BateBotaRoutes.TELA_DOIS_ROTA
+    val ehRotaTres = rotaAtual == BateBotaRoutes.TELA_TRES_ROTA
+    val ehRotaPerfil = rotaAtual == BateBotaRoutes.TELA_PERFIL_ROTA
 
     Column(
         modifier = Modifier
@@ -123,7 +116,7 @@ private fun DrawerContent(
                 containerColor = getColorMenu(ehRotaDois)
             ),
             onClick = {
-                navController.navigate(PlannerRotas.TELA_DOIS_ROTA)
+                navController.navigate(BateBotaRoutes.TELA_DOIS_ROTA)
                 coroutineScope.launch {
                     drawerState.close()
                 }
@@ -148,7 +141,7 @@ private fun DrawerContent(
                 containerColor = getColorMenu(ehRotaUm)
             ),
             onClick = {
-                navController.navigate(PlannerRotas.TELA_UM_ROTA)
+                navController.navigate(BateBotaRoutes.TELA_UM_ROTA)
                 coroutineScope.launch {
                     drawerState.close()
                 }
@@ -168,7 +161,7 @@ private fun DrawerContent(
                 containerColor = getColorMenu(ehRotaTres)
             ),
             onClick = {
-                navController.navigate(PlannerRotas.TELA_TRES_ROTA)
+                navController.navigate(BateBotaRoutes.TELA_TRES_ROTA)
                 coroutineScope.launch {
                     drawerState.close()
                 }
@@ -187,7 +180,7 @@ private fun DrawerContent(
                 containerColor = getColorMenu(ehRotaPerfil)
             ),
             onClick = {
-                navController.navigate(PlannerRotas.TELA_PERFIL_ROTA)
+                navController.navigate(BateBotaRoutes.TELA_PERFIL_ROTA)
                 coroutineScope.launch {
                     drawerState.close()
                 }
