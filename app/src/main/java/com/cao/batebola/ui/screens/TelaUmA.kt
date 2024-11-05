@@ -70,7 +70,5 @@ fun TelaUmA(padding: PaddingValues) {
                 color = Color.White
             )
         }
-
-
     }
 }
