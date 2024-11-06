@@ -25,21 +25,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 
-import androidx.navigation.compose.rememberNavController
 import com.cao.batebola.ui.screens.utils.TopBar
-
 @Composable
-fun SecondScreeen(drawerState: DrawerState) {
-
-
+fun SecondScreeen(navController : NavHostController,  drawerState :DrawerState) {
     Scaffold(
         topBar = { TopBar(drawerState) },
         content = { padding ->
-
             val afazeres = listOf(
                 Afazer(
                     titulo = "Time do Felipe",
@@ -72,9 +68,10 @@ fun SecondScreeen(drawerState: DrawerState) {
                 }
             }
         },
-        floatingActionButton = { FloatButton() }
+        floatingActionButton = { FloatButton(navController) }
     )
 }
+
 
 @Composable
 fun AfazerCard(afazer: Afazer) {
@@ -112,9 +109,12 @@ fun AfazerCard(afazer: Afazer) {
 }
 
 @Composable
-fun FloatButton() {
+fun FloatButton(navController: NavController) {
     FloatingActionButton(
-        onClick = { /*  */ },
+        onClick = {
+            // Navegar para a tela de criação de time
+            navController.navigate("create_team")
+        },
         containerColor = Color(0xFF064D0C)
     ) {
         Icon(
@@ -124,6 +124,7 @@ fun FloatButton() {
         )
     }
 }
+
 
 
 data class Afazer(

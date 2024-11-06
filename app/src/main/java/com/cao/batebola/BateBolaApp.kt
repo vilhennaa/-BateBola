@@ -37,7 +37,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 
 import kotlinx.coroutines.launch
-import kotlinx.serialization.Serializable
 
 object BateBotaRoutes {
     val TELA_UM_ROTA = "tela_um"
@@ -50,34 +49,36 @@ object BateBotaRoutes {
     device = Devices.PIXEL
 )
 @Composable
-fun BateBolaApp(){
-
-    val drawerState = rememberDrawerState(
-        initialValue = DrawerValue.Closed)
-
-    val navController = rememberNavController()
+fun BateBolaApp() {
+    val navController = rememberNavController() // Criando o NavController
+    val drawerState = rememberDrawerState(DrawerValue.Closed) // DrawerState para o menu lateral
 
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            DrawerContent(navController, drawerState)
+            DrawerContent(navController = navController, drawerState = drawerState) // Passando o NavController aqui
         },
         content = {
             NavHost(
-                navController = navController,
-                startDestination = BateBotaRoutes.TELA_DOIS_ROTA)
-            {
+                navController = navController, // Passando o NavController aqui também
+                startDestination = BateBotaRoutes.TELA_DOIS_ROTA
+            ) {
                 composable(BateBotaRoutes.TELA_UM_ROTA) {
                     MainScreen(drawerState)
                 }
                 composable(BateBotaRoutes.TELA_DOIS_ROTA) {
-                    SecondScreeen(drawerState)
+                    SecondScreeen(navController,drawerState)
                 }
                 composable(BateBotaRoutes.TELA_TRES_ROTA) {
                     ThirdScreen(drawerState)
                 }
                 composable(BateBotaRoutes.TELA_PERFIL_ROTA) {
                     ProfileScreen(drawerState)
+                }
+
+                // Adicionando a rota para a tela de criação de time
+                composable("create_team") {
+                    CreateTeamScreen(navController) // Agora o NavController é passado corretamente
                 }
             }
         }

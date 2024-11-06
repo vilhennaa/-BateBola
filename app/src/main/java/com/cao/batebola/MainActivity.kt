@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.ui.Modifier
 import com.cao.batebola.navigation.BateBolaNavHost
-import com.cao.batebola.ui.screens.BateBolaApp
 import com.cao.batebola.ui.theme.BateBolaTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,6 +20,7 @@ class MainActivity : ComponentActivity() {
                     .safeDrawingPadding()
             ) {
                 BateBolaTheme {
+                    // Passando o NavController aqui
                     BateBolaNavHost()
                 }
             }
