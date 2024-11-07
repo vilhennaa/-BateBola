@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.cao.batebola.ui.screens.CreateTeamScreen
+import com.cao.batebola.ui.screens.CreatePartidaScreen
 import com.cao.batebola.ui.screens.MainScreen
 import com.cao.batebola.ui.screens.ProfileScreen
 import com.cao.batebola.ui.screens.SecondScreeen
@@ -24,7 +24,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerState
@@ -32,7 +31,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -42,10 +40,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
+import com.cao.batebola.ui.screens.AddPlayer
 
 import kotlinx.coroutines.launch
 
@@ -71,7 +67,7 @@ fun BateBolaNavHost() {
                     SecondScreeen(navController,drawerState)
                 }
                 composable(BateBotaRoutes.TELA_TRES_ROTA) {
-                    ThirdScreen(drawerState)
+                    ThirdScreen(drawerState,navController)
                 }
                 composable(BateBotaRoutes.TELA_PERFIL_ROTA) {
                     ProfileScreen(drawerState)
@@ -79,7 +75,10 @@ fun BateBolaNavHost() {
 
                 // Adicionando a rota para a tela de criação de time
                 composable("create_team") {
-                    CreateTeamScreen(navController) // Agora o NavController é passado corretamente
+                    CreatePartidaScreen(navController) // Agora o NavController é passado corretamente
+                }
+                composable("add_player"){
+                    AddPlayer(navController)
                 }
             }
         }
@@ -194,25 +193,6 @@ private fun DrawerContent(
             )
             Text(text = "Seu time", fontSize = 30.sp,
                 color = getColorTexto(ehRotaTres))
-        }
-        TextButton(
-            colors = ButtonDefaults.buttonColors(
-                containerColor = getColorMenu(ehRotaPerfil)
-            ),
-            onClick = {
-                navController.navigate(BateBotaRoutes.TELA_PERFIL_ROTA)
-                coroutineScope.launch {
-                    drawerState.close()
-                }
-            }) {
-            Icon(
-                imageVector = Icons.Default.Person,
-                contentDescription = "b",
-                modifier = Modifier.size(40.dp),
-                Color.Black
-            )
-            Text(text = "Perfil", fontSize = 30.sp,
-                color = getColorTexto(ehRotaPerfil))
         }
         TextButton(
             colors = ButtonDefaults.buttonColors(

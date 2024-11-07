@@ -11,10 +11,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerState
@@ -25,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -36,19 +40,19 @@ fun SecondScreeen(navController : NavHostController,  drawerState :DrawerState) 
     Scaffold(
         topBar = { TopBar(drawerState) },
         content = { padding ->
-            val afazeres = listOf(
-                Afazer(
-                    titulo = "Time do Felipe",
+            val partidas = listOf(
+                Partida(
+                    titulo = "Partida de fut",
                     descricao = "Profissional",
                     id = 1
                 ),
-                Afazer(
-                    titulo = "Time do Manfré",
+                Partida(
+                    titulo = "Futebol dos guri",
                     descricao = "Semi-Profissional",
                     id = 2
                 ),
-                Afazer(
-                    titulo = "Time do Gustavo",
+                Partida(
+                    titulo = "Pelada da piazada",
                     descricao = "Amador",
                     id = 3
                 )
@@ -62,8 +66,8 @@ fun SecondScreeen(navController : NavHostController,  drawerState :DrawerState) 
                 verticalArrangement = Arrangement.Top,
                 contentPadding = PaddingValues(16.dp)
             ) {
-                items(afazeres) { afazer ->
-                    AfazerCard(afazer)
+                items(partidas) { partida ->
+                    PartidaCard(partida)
                     Spacer(modifier = Modifier.height(16.dp))
                 }
             }
@@ -74,7 +78,7 @@ fun SecondScreeen(navController : NavHostController,  drawerState :DrawerState) 
 
 
 @Composable
-fun AfazerCard(afazer: Afazer) {
+fun PartidaCard(partida: Partida) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -90,20 +94,28 @@ fun AfazerCard(afazer: Afazer) {
                 .padding(16.dp)
         ) {
             Text(
-                text = "Título: ${afazer.titulo}",
+                text = "Título: ${partida.titulo}",
                 fontSize = 24.sp,
                 color = Color.Black
             )
             Text(
-                text = "Descrição: ${afazer.descricao}",
+                text = "Descrição: ${partida.descricao}",
                 fontSize = 16.sp,
                 color = Color.DarkGray
             )
-            Text(
-                text = "ID: ${afazer.id}",
-                fontSize = 14.sp,
-                color = Color.Gray
-            )
+            Spacer(modifier = Modifier.padding(10.dp))
+            Button(
+                onClick = { /* TODO */ },
+                modifier = Modifier
+                    .width(140.dp)
+                    .height(40.dp),
+                shape = RectangleShape,colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF04330A))
+            ) {
+                Text(text = "Aceitar duelo")
+            }
+
+
         }
     }
 }
@@ -112,7 +124,6 @@ fun AfazerCard(afazer: Afazer) {
 fun FloatButton(navController: NavController) {
     FloatingActionButton(
         onClick = {
-            // Navegar para a tela de criação de time
             navController.navigate("create_team")
         },
         containerColor = Color(0xFF064D0C)
@@ -127,7 +138,7 @@ fun FloatButton(navController: NavController) {
 
 
 
-data class Afazer(
+data class Partida(
     var titulo: String,
     var descricao: String,
     var concluido: Boolean = false,
