@@ -41,12 +41,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.cao.batebola.ui.mvvm.JogadorViewModel
 import com.cao.batebola.ui.screens.AddPlayer
 
 import kotlinx.coroutines.launch
 
 @Composable
-fun BateBolaNavHost() {
+fun BateBolaNavHost(viewModel: JogadorViewModel) {
     val navController = rememberNavController() // Criando o NavController
     val drawerState = rememberDrawerState(DrawerValue.Closed) // DrawerState para o menu lateral
 
