@@ -80,15 +80,14 @@ fun ThirdScreen(drawerState: DrawerState, navController: NavHostController) {
                     .fillMaxSize()
                     .padding(padding)
             ) {
-                // Card com a foto do time e o nome
+
                 TeamHeader(
-                    teamName = "Time do Felipe",
-                    imageRes = R.drawable.perfil // Substitua pela imagem do time
+                    teamName = "BarSemLona FC",
+                    imageRes = R.drawable.img
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Lista de jogadores
                 LazyColumn(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Top,

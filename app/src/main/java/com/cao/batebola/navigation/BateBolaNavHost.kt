@@ -73,9 +73,8 @@ fun BateBolaNavHost() {
                     ProfileScreen(drawerState)
                 }
 
-                // Adicionando a rota para a tela de criação de time
                 composable("create_team") {
-                    CreatePartidaScreen(navController) // Agora o NavController é passado corretamente
+                    CreatePartidaScreen(navController)
                 }
                 composable("add_player"){
                     AddPlayer(navController)
@@ -149,7 +148,7 @@ private fun DrawerContent(
             )
 
             Text(
-                text = "Times cadastrados",
+                text = "Partidas cadastrados",
                 fontSize = 30.sp,
 
                 color = getColorTexto(ehRotaDois)

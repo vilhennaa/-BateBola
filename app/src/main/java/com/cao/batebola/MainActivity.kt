@@ -20,7 +20,6 @@ class MainActivity : ComponentActivity() {
                     .safeDrawingPadding()
             ) {
                 BateBolaTheme {
-                    // Passando o NavController aqui
                     BateBolaNavHost()
                 }
             }
