@@ -56,8 +56,8 @@ fun SecondScreeen(navController : NavHostController, drawerState: DrawerState) {
                     id = 2
                 ),
                 Partida(
-                    titulo = "gustavo da o bubummm",
-                    nomeDoTime = "Amador",
+                    titulo = "Partida dos Baianos",
+                    nomeDoTime = "Novos Baianos",
                     data = Date.valueOf("2024-11-22"),
                     local = "Campo Municipal",
                     id = 3

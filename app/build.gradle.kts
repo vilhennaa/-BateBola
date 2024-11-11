@@ -6,6 +6,7 @@ plugins {
     kotlin("plugin.serialization")
     id("com.google.devtools.ksp")
     //id("com.google.dagger.hilt.android")
+//    id("com.google.gms.google-services")
 }
 
 android {
@@ -72,7 +73,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
     // Dependências do Room
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
@@ -80,4 +80,9 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
     // Suporte ao coroutines e Flow com Room
+
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation("com.google.firebase:firebase-analytics")
+
 }
