@@ -3,7 +3,7 @@ package com.cao.batebola.ui.mvvm
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cao.batebola.dados.dao.JogadorDao
-import com.cao.batebola.dados.model.Jogador
+import com.cao.batebola.dados.entity.JogadorEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,30 +16,30 @@ class JogadorViewModel(
     private val dao : JogadorDao
 ) : ViewModel(){
 
-    fun excluir(jogador: Jogador) {
+    fun excluir(jogador: JogadorEntity) {
         viewModelScope.launch {
-            dao.excluirJogador(jogador)
+            dao.deleteJogador(jogador)
         }
     }
 
-    fun gravar(jogador: Jogador) {
+    fun gravar(jogador: JogadorEntity) {
         viewModelScope.launch {
-            dao.gravarJogador(jogador)
+            dao.insertJogador(jogador)
         }
     }
 
-    suspend fun buscarAfazerPorId(jogadorId: Int): Jogador? {
+    suspend fun buscarAfazerPorId(id: Long): JogadorEntity? {
         return withContext(Dispatchers.IO){
-            dao.buscarJogadorPorId(jogadorId)
+            dao.getJogadorById(id)
         }
     }
 
-    private val _jogadores = MutableStateFlow<List<Jogador>>(emptyList())
-    val jogadores: StateFlow<List<Jogador>> get() = _jogadores
+    private val _jogadores = MutableStateFlow<List<JogadorEntity>>(emptyList())
+    val jogadores: StateFlow<List<JogadorEntity>> get() = _jogadores
 
     init {
         viewModelScope.launch {
-            dao.listarJogadores().collectLatest { listaDeJogadores ->
+            dao.getAllJogadores().collectLatest { listaDeJogadores ->
                 _jogadores.value = listaDeJogadores
             }
         }

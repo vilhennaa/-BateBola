@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
@@ -22,19 +21,17 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.cao.batebola.R
-import com.cao.batebola.dados.model.Jogador
+import com.cao.batebola.dados.entity.JogadorEntity
 import com.cao.batebola.ui.screens.utils.TopBar
 
 @Composable
@@ -105,7 +102,7 @@ fun TeamHeader(teamName: String, imageRes: Int) {
 }
 
 @Composable
-fun JogadorCard(jogador: Jogador) {
+fun JogadorCard(jogador: JogadorEntity) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -127,11 +124,6 @@ fun JogadorCard(jogador: Jogador) {
                 text = "Posição: ${jogador.idade}",
                 fontSize = 16.sp,
                 color = Color.DarkGray
-            )
-            Text(
-                text = "ID: ${jogador.id}",
-                fontSize = 14.sp,
-                color = Color.Gray
             )
         }
     }

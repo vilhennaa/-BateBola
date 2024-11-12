@@ -1,19 +1,19 @@
 package com.cao.batebola.dados
 
-
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.cao.batebola.dados.dao.JogadorDao
-import com.cao.batebola.dados.model.Jogador
+import com.cao.batebola.dados.entity.JogadorEntity
 
-@Database(entities = [Jogador::class], version = 1)
+@Database(entities = [JogadorEntity::class], version = 1)
 abstract class JogadorDatabase : RoomDatabase() {
 
     abstract fun jogadorDao(): JogadorDao
 
     companion object {
+
         @Volatile
         private var INSTANCE: JogadorDatabase? = null
 
