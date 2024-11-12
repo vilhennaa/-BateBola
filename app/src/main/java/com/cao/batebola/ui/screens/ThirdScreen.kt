@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.cao.batebola.R
+import com.cao.batebola.dados.model.Jogador
 import com.cao.batebola.ui.screens.utils.TopBar
 
 @Composable
@@ -42,38 +43,7 @@ fun ThirdScreen(drawerState: DrawerState, navController: NavHostController) {
         topBar = { TopBar(drawerState) },
         content = { padding ->
 
-            val jogadores = listOf(
-                Jogadores(
-                    titulo = "Felipe",
-                    descricao = "Atacante",
-                    id = 1
-                ),
-                Jogadores(
-                    titulo = "Manfré",
-                    descricao = "Meio-campo",
-                    id = 2
-                ),
-                Jogadores(
-                    titulo = "Gustavo",
-                    descricao = "Goleiro",
-                    id = 3
-                ),
-                Jogadores(
-                    titulo = "Joao",
-                    descricao = "Zagueiro",
-                    id = 4
-                ),
-                Jogadores(
-                    titulo = "Paulinho",
-                    descricao = "Volante",
-                    id = 5
-                ),
-                Jogadores(
-                    titulo = "Jhonathan",
-                    descricao = "Meio-campo",
-                    id = 6
-                )
-            )
+
 
             Column(
                 modifier = Modifier
@@ -93,10 +63,7 @@ fun ThirdScreen(drawerState: DrawerState, navController: NavHostController) {
                     verticalArrangement = Arrangement.Top,
                     contentPadding = PaddingValues(16.dp)
                 ) {
-                    items(jogadores) { jogador ->
-                        JogadorCard(jogador)
-                        Spacer(modifier = Modifier.height(16.dp))
-                    }
+
                 }
             }
         },
@@ -138,7 +105,7 @@ fun TeamHeader(teamName: String, imageRes: Int) {
 }
 
 @Composable
-fun JogadorCard(jogador: Jogadores) {
+fun JogadorCard(jogador: Jogador) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -152,12 +119,12 @@ fun JogadorCard(jogador: Jogadores) {
                 .padding(16.dp)
         ) {
             Text(
-                text = "Nome: ${jogador.titulo}",
+                text = "Nome: ${jogador.nome}",
                 fontSize = 24.sp,
                 color = Color.Black
             )
             Text(
-                text = "Posição: ${jogador.descricao}",
+                text = "Posição: ${jogador.idade}",
                 fontSize = 16.sp,
                 color = Color.DarkGray
             )
@@ -186,8 +153,3 @@ fun FloatButtonThird(navController: NavHostController) {
     }
 }
 
-data class Jogadores(
-    var titulo: String,
-    var descricao: String,
-    var id: Int? = null
-)
