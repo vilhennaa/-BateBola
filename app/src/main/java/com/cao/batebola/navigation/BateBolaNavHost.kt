@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.navArgument
 import com.cao.batebola.ui.feature.addjogador.AddJogadorScreen
+import com.cao.batebola.ui.feature.seutime.ThirdScreen
 import kotlinx.coroutines.launch
 
 object Routes {
