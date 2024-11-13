@@ -8,25 +8,25 @@ import com.cao.batebola.dados.dao.JogadorDao
 import com.cao.batebola.dados.entity.JogadorEntity
 
 @Database(entities = [JogadorEntity::class], version = 1)
-abstract class JogadorDatabase : RoomDatabase() {
+abstract class BateBolaDatabase : RoomDatabase() {
 
-    abstract fun jogadorDao(): JogadorDao
+    abstract val jogadorDao: JogadorDao
+}
 
-    companion object {
+object BateBolaDatabaseProvider {
 
-        @Volatile
-        private var INSTANCE: JogadorDatabase? = null
+    @Volatile
+    private var INSTANCE: BateBolaDatabase? = null
 
-        fun getInstance(context: Context): JogadorDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    JogadorDatabase::class.java,
-                    "batebola.db"
-                ).build()
-                INSTANCE = instance
-                instance
-            }
+    fun provide(context: Context): BateBolaDatabase {
+        return INSTANCE ?: synchronized(this) {
+            val instance = Room.databaseBuilder(
+                context.applicationContext,
+                BateBolaDatabase::class.java,
+                "batebola.db"
+            ).build()
+            INSTANCE = instance
+            instance
         }
     }
 }

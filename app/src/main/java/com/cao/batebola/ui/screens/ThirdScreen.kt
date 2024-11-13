@@ -1,5 +1,6 @@
 package com.cao.batebola.ui.screens
 
+import Routes.ADD_JOGADOR
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,9 +31,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.cao.batebola.R
 import com.cao.batebola.dados.entity.JogadorEntity
 import com.cao.batebola.ui.screens.utils.TopBar
+import com.cao.batebola.R
 
 @Composable
 fun ThirdScreen(drawerState: DrawerState, navController: NavHostController) {
@@ -133,7 +134,7 @@ fun JogadorCard(jogador: JogadorEntity) {
 fun FloatButtonThird(navController: NavHostController) {
     FloatingActionButton(
         onClick = {
-            navController.navigate("add_player")
+            navController.navigate(ADD_JOGADOR)
         },
         containerColor = Color(0xFF064D0C)
     ) {
@@ -144,4 +145,3 @@ fun FloatButtonThird(navController: NavHostController) {
         )
     }
 }
-

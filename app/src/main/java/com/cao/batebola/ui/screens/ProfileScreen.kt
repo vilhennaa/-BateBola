@@ -1,6 +1,5 @@
 package com.cao.batebola.ui.screens
 
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape

@@ -2,6 +2,7 @@ package com.cao.batebola.dados.repository
 
 import com.cao.batebola.dados.dao.JogadorDao
 import com.cao.batebola.dados.entity.JogadorEntity
+import com.cao.batebola.domain.Jogador
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -38,10 +39,10 @@ class JogadorRepositoryImpl(
         dao.deleteJogador(jogadorExistente)
     }
 
-    override fun getAllJogadores(): Flow<List<JogadorEntity>> {
+    override fun getAllJogadores(): Flow<List<Jogador>> {
         return dao.getAllJogadores().map { jogadores ->
             jogadores.map { jogador ->
-                JogadorEntity(
+                Jogador(
                     id = jogador.id,
                     nome = jogador.nome,
                     posicao = jogador.posicao,
@@ -52,9 +53,9 @@ class JogadorRepositoryImpl(
         }
     }
 
-    override suspend fun getJogadorById(id: Long): JogadorEntity? {
+    override suspend fun getJogadorById(id: Long): Jogador? {
         return dao.getJogadorById(id)?.let { jogador ->
-            JogadorEntity(
+            Jogador(
                 id = jogador.id,
                 nome = jogador.nome,
                 posicao = jogador.posicao,
