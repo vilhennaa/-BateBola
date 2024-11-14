@@ -21,9 +21,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.toRoute
 import com.cao.batebola.ui.feature.addjogador.AddJogadorScreen
+import com.cao.batebola.ui.feature.seutime.SeuTimeScreen
 import com.cao.batebola.ui.feature.seutime.ThirdScreen
 import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
 
 object Routes {
     const val TELA_UM = "tela_um"
@@ -33,6 +36,11 @@ object Routes {
     const val ADD_JOGADOR = "add_jogador"
 }
 
+@Serializable
+object SeuTimeRoute
+
+@Serializable
+data class AddJogadorRoute(val id: Long? = null)
 
 @Composable
 fun BateBolaNavHost() {
@@ -61,12 +69,26 @@ fun BateBolaNavHost() {
                 composable(Routes.TELA_PERFIL) {
                     ProfileScreen(drawerState)
                 }
-                composable("${Routes.ADD_JOGADOR}/{teamId}") { backStackEntry ->
-                    val teamId = backStackEntry.arguments?.getString("teamId")?.toLongOrNull()
-                    AddJogadorScreen(id = teamId, navigateBack = { navController.popBackStack() })
+//                composable(Routes.ADD_JOGADOR) { backStackEntry ->
+//                    AddJogadorScreen(id = teamId, navigateBack = { navController.popBackStack() })
+//                }
+                composable<SeuTimeRoute> {
+                    SeuTimeScreen(
+                        navigateToAddJogadorScreen = { id ->
+                            navController.navigate(AddJogadorRoute(id = id))
+                        }
+                    )
+                }
+                composable<AddJogadorRoute> { navBackStackEntry ->
+                    val addEditRoute = navBackStackEntry.toRoute<AddJogadorRoute>()
+                    AddJogadorScreen(
+                        id = addEditRoute.id,
+                        navigateBack = {
+                            navController.popBackStack()
+                        }
+                    )
                 }
             }
-
         }
     )
 }
@@ -115,7 +137,7 @@ private fun DrawerContent(
         TextButton(
             colors = ButtonDefaults.buttonColors(containerColor = getColorMenu(rotaAtual == Routes.TELA_TRES)),
             onClick = {
-                navController.navigate(Routes.TELA_TRES)
+                navController.navigate(SeuTimeRoute)
                 coroutineScope.launch { drawerState.close() }
             }
         ) {

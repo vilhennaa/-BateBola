@@ -1,5 +1,6 @@
 package com.cao.batebola.ui.feature.seutime
 
+import AddJogadorRoute
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -180,9 +181,9 @@ fun SeuTimeScreen(
             when (uiEvent) {
                 is UiEvent.Navigate<*> -> {
                     when (uiEvent.route) {
-//                        is AddJogadorRoute -> {
-//                            navigateToAddJogadorScreen(uiEvent.route.id)
-//                        }
+                        is AddJogadorRoute -> {
+                            navigateToAddJogadorScreen(uiEvent.route.id)
+                        }
                     }
                 }
                 UiEvent.NavigateBack -> {}
@@ -210,22 +211,35 @@ fun SeuTimeContent(
                 Icon(Icons.Default.Add, contentDescription = "Add")
             }
         }
-    ) {
-        paddingValues ->
-        LazyColumn(
-            modifier = Modifier.consumeWindowInsets(paddingValues),
-            contentPadding = PaddingValues(16.dp)
+    ) { paddingValues ->
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
         ) {
-            itemsIndexed(jogadores) { index, jogador ->
-                JogadorCard(
-                    jogadores = jogador,
-                    onItemClick = { onEvent(SeuTimeEvent.AddJogador(jogador.id)) },
-                    onDeleteClick = { onEvent(SeuTimeEvent.DeleteJogador(jogador.id)) },
-                )
+            TeamHeader(
+                teamName = "BarSemLona FC",
+                imageRes = R.drawable.img
+            )
 
-                if (index < jogadores.lastIndex) {
-                    Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
+            LazyColumn(
+                modifier = Modifier.consumeWindowInsets(paddingValues),
+                contentPadding = PaddingValues(16.dp)
+            ) {
+                itemsIndexed(jogadores) { index, jogador ->
+                    JogadorCard(
+                        jogadores = jogador,
+                        onItemClick = { onEvent(SeuTimeEvent.AddJogador(jogador.id)) },
+                        onDeleteClick = { onEvent(SeuTimeEvent.DeleteJogador(jogador.id)) },
+                    )
+
+                    if (index < jogadores.lastIndex) {
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                    }
                 }
             }
         }

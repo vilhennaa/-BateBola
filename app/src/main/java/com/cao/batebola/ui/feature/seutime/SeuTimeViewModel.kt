@@ -1,5 +1,6 @@
 package com.cao.batebola.ui.feature.seutime
 
+import AddJogadorRoute
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cao.batebola.dados.repository.JogadorRepository
@@ -30,7 +31,7 @@ class SeuTimeViewModel (
             }
             is SeuTimeEvent.AddJogador -> {
                 viewModelScope.launch {
-//                    _uiEvent.send(UiEvent.Navigate(AddJogadorRoute(event.id)))
+                    _uiEvent.send(UiEvent.Navigate(AddJogadorRoute(event.id)))
                 }
             }
         }
