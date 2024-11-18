@@ -1,11 +1,11 @@
-package com.cao.batebola.dados.dao
+package com.cao.batebola.dados.dao.Jogador
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.cao.batebola.dados.entity.JogadorEntity
+import com.cao.batebola.dados.entity.Jogador.JogadorEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

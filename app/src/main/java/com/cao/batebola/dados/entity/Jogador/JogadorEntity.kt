@@ -1,4 +1,4 @@
-package com.cao.batebola.dados.entity
+package com.cao.batebola.dados.entity.Jogador
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -9,5 +9,6 @@ data class JogadorEntity(
     val nome: String,
     val posicao: String,
     val idade: Int,
-    val capitao: Boolean = false
+    val capitao: Boolean = false,
+//    val timeId: Long? = null
 )

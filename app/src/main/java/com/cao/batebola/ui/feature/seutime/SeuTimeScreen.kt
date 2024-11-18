@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -39,11 +38,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.cao.batebola.dados.entity.JogadorEntity
+import com.cao.batebola.dados.entity.Jogador.JogadorEntity
 import com.cao.batebola.ui.screens.utils.TopBar
 import com.cao.batebola.R
 import com.cao.batebola.dados.BateBolaDatabaseProvider
-import com.cao.batebola.dados.repository.JogadorRepositoryImpl
+import com.cao.batebola.dados.repository.Jogador.JogadorRepositoryImpl
 import com.cao.batebola.domain.Jogador
 import com.cao.batebola.ui.UiEvent
 import com.cao.batebola.ui.components.JogadorCard
@@ -83,7 +82,6 @@ fun ThirdScreen(drawerState: DrawerState, navController: NavHostController) {
                 }
             }
         },
-        floatingActionButton = { FloatButtonThird(navController) }
     )
 }
 
@@ -149,24 +147,9 @@ fun JogadorCard(jogador: Jogador) {
 }
 
 @Composable
-fun FloatButtonThird(navController: NavHostController) {
-    FloatingActionButton(
-        onClick = {
-            navController.navigate("add_jogador")
-        },
-        containerColor = Color(0xFF064D0C)
-    ) {
-        Icon(
-            imageVector = Icons.Filled.Add,
-            contentDescription = "Adicionar jogador",
-            tint = Color.White
-        )
-    }
-}
-
-@Composable
 fun SeuTimeScreen(
     navigateToAddJogadorScreen: (Long?) -> Unit,
+    drawerState: DrawerState
 ) {
     val context = LocalContext.current.applicationContext
     val database = BateBolaDatabaseProvider.provide(context)
@@ -194,7 +177,8 @@ fun SeuTimeScreen(
 
     SeuTimeContent(
         jogadores = jogadores,
-        onEvent = viewModel::onEvent
+        onEvent = viewModel::onEvent,
+        drawerState = drawerState
     )
 }
 
@@ -202,13 +186,16 @@ fun SeuTimeScreen(
 fun SeuTimeContent(
     jogadores: List<Jogador>,
     onEvent: (SeuTimeEvent) -> Unit,
+    drawerState: DrawerState
 ) {
     Scaffold(
+        topBar = { TopBar(drawerState = drawerState )},
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                onEvent(SeuTimeEvent.AddJogador(null))
-            }) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
+                onEvent(SeuTimeEvent.AddJogador(null)) },
+                containerColor = Color(0xFF064D0C)
+            ) {
+                Icon(Icons.Default.Add, contentDescription = "Add", tint = Color.White)
             }
         }
     ) { paddingValues ->

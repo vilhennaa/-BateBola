@@ -23,10 +23,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.toRoute
 import com.cao.batebola.ui.feature.addjogador.AddJogadorScreen
+import com.cao.batebola.ui.feature.addtime.AddTimeScreen
 import com.cao.batebola.ui.feature.seutime.SeuTimeScreen
 import com.cao.batebola.ui.feature.seutime.ThirdScreen
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
+import kotlin.toString
 
 object Routes {
     const val TELA_UM = "tela_um"
@@ -41,6 +43,9 @@ object SeuTimeRoute
 
 @Serializable
 data class AddJogadorRoute(val id: Long? = null)
+
+@Serializable
+data class AddTimeRoute(val id: Long? = null)
 
 @Composable
 fun BateBolaNavHost() {
@@ -69,14 +74,20 @@ fun BateBolaNavHost() {
                 composable(Routes.TELA_PERFIL) {
                     ProfileScreen(drawerState)
                 }
-//                composable(Routes.ADD_JOGADOR) { backStackEntry ->
-//                    AddJogadorScreen(id = teamId, navigateBack = { navController.popBackStack() })
-//                }
+                composable<AddTimeRoute> {
+                    AddTimeScreen(
+                        id = it.toRoute<AddTimeRoute>()?.id,
+                        navigateBack = {
+                            navController.popBackStack()
+                        }
+                    )
+                }
                 composable<SeuTimeRoute> {
                     SeuTimeScreen(
                         navigateToAddJogadorScreen = { id ->
                             navController.navigate(AddJogadorRoute(id = id))
-                        }
+                        },
+                        drawerState = drawerState
                     )
                 }
                 composable<AddJogadorRoute> { navBackStackEntry ->
@@ -135,14 +146,35 @@ private fun DrawerContent(
         }
 
         TextButton(
-            colors = ButtonDefaults.buttonColors(containerColor = getColorMenu(rotaAtual == Routes.TELA_TRES)),
+            colors = ButtonDefaults.buttonColors(containerColor = getColorMenu(rotaAtual == AddTimeRoute().toString())),
+            onClick = {
+                navController.navigate(AddTimeRoute())
+                coroutineScope.launch { drawerState.close() }
+            }
+        ) {
+            Icon(
+                imageVector = Icons.Default.DateRange,
+                contentDescription = "Cadastrar Times",
+                modifier = Modifier.size(40.dp),
+                Color.Black
+            )
+            Text(
+                text = "Cadastrar Times",
+                fontSize = 30.sp,
+                color = getColorTexto(rotaAtual == AddTimeRoute().toString())
+            )
+        }
+
+
+        TextButton(
+            colors = ButtonDefaults.buttonColors(containerColor = getColorMenu(rotaAtual == SeuTimeRoute.toString())),
             onClick = {
                 navController.navigate(SeuTimeRoute)
                 coroutineScope.launch { drawerState.close() }
             }
         ) {
             Icon(imageVector = Icons.Default.Star, contentDescription = "Seu time", modifier = Modifier.size(40.dp), Color.Black)
-            Text(text = "Seu time", fontSize = 30.sp, color = getColorTexto(rotaAtual == Routes.TELA_TRES))
+            Text(text = "Seu time", fontSize = 30.sp, color = getColorTexto(rotaAtual == SeuTimeRoute.toString()))
         }
 
         TextButton(

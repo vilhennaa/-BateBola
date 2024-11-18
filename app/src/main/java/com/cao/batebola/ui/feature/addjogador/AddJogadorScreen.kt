@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.cao.batebola.dados.BateBolaDatabaseProvider
-import com.cao.batebola.dados.repository.JogadorRepositoryImpl
+import com.cao.batebola.dados.repository.Jogador.JogadorRepositoryImpl
 import com.cao.batebola.ui.UiEvent
 
 @Composable
@@ -39,7 +39,7 @@ fun AddJogadorScreen(
 
     val viewModel = viewModel<AddJogadorViewModel> {
         AddJogadorViewModel(
-            id = id,
+            jogadorId = id,
             repository = repository
         )
     }
@@ -87,7 +87,7 @@ fun AddJogadorContent(
     Column(modifier = Modifier.padding(16.dp)) {
         // Botão de Voltar
         IconButton(
-            onClick = { UiEvent.NavigateBack },
+            onClick = { onEvent(AddJogadorEvent.OnNavigateBack) },
             modifier = Modifier.padding(bottom = 16.dp)
         ) {
             androidx.compose.material3.Icon(

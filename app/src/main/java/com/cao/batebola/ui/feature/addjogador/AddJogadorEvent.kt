@@ -5,5 +5,6 @@ interface AddJogadorEvent {
     data class OnPosicaoChange(val posicao: String) : AddJogadorEvent
     data class OnIdadeChange(val idade: Int) : AddJogadorEvent
     data class IsCapitaoChange(val capitao: Boolean) : AddJogadorEvent
+    object OnNavigateBack : AddJogadorEvent
     object OnSaveJogadorClick : AddJogadorEvent
 }

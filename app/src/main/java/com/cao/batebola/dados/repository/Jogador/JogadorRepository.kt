@@ -1,4 +1,4 @@
-package com.cao.batebola.dados.repository
+package com.cao.batebola.dados.repository.Jogador
 
 import com.cao.batebola.domain.Jogador
 import kotlinx.coroutines.flow.Flow
@@ -10,7 +10,8 @@ interface JogadorRepository {
         posicao: String,
         idade: Int,
         capitao: Boolean,
-        id: Long
+        id: Long,
+//        timeId: Long
     )
 
     suspend fun deleteJogador(id: Long)

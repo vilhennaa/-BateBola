@@ -17,12 +17,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
+@Preview
 @Composable
-fun CreatePartidaScreen(navController: NavController) {
+fun CreatePartidaScreen() {
     val partidaTitulo = remember { mutableStateOf("") }
     val partidaDescricao = remember { mutableStateOf("") }
 
@@ -30,7 +32,7 @@ fun CreatePartidaScreen(navController: NavController) {
 
         // Botão de Voltar
         IconButton(
-            onClick = { navController.popBackStack() },
+            onClick = {  },
             modifier = Modifier.padding(bottom = 16.dp)
         ) {
             androidx.compose.material3.Icon(
@@ -64,7 +66,7 @@ fun CreatePartidaScreen(navController: NavController) {
 
         Button(
             onClick = {
-                navController.popBackStack()
+//                navController.popBackStack()
             },
             modifier = Modifier.fillMaxWidth(),colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF04330A))

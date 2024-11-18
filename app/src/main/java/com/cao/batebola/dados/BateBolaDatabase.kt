@@ -4,13 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.cao.batebola.dados.dao.JogadorDao
-import com.cao.batebola.dados.entity.JogadorEntity
+import com.cao.batebola.dados.dao.Jogador.JogadorDao
+import com.cao.batebola.dados.dao.Time.TimeDao
+import com.cao.batebola.dados.entity.Jogador.JogadorEntity
+import com.cao.batebola.dados.entity.Time.TimeEntity
 
-@Database(entities = [JogadorEntity::class], version = 1)
+@Database(entities = [JogadorEntity::class, TimeEntity::class], version = 3)
 abstract class BateBolaDatabase : RoomDatabase() {
-
     abstract val jogadorDao: JogadorDao
+    abstract val timeDao: TimeDao
 }
 
 object BateBolaDatabaseProvider {
@@ -24,7 +26,9 @@ object BateBolaDatabaseProvider {
                 context.applicationContext,
                 BateBolaDatabase::class.java,
                 "batebola.db"
-            ).build()
+            )
+                .fallbackToDestructiveMigration()
+                .build()
             INSTANCE = instance
             instance
         }

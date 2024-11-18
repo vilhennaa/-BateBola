@@ -1,7 +1,7 @@
-package com.cao.batebola.dados.repository
+package com.cao.batebola.dados.repository.Jogador
 
-import com.cao.batebola.dados.dao.JogadorDao
-import com.cao.batebola.dados.entity.JogadorEntity
+import com.cao.batebola.dados.dao.Jogador.JogadorDao
+import com.cao.batebola.dados.entity.Jogador.JogadorEntity
 import com.cao.batebola.domain.Jogador
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -15,19 +15,22 @@ class JogadorRepositoryImpl(
         posicao: String,
         idade: Int,
         capitao: Boolean,
-        id: Long
+        id: Long,
+//        timeId: Long
     ) {
         val jogador = id.let {
             dao.getJogadorById(it)?.copy(
                 nome = nome,
                 posicao = posicao,
                 idade = idade,
-                capitao = capitao
+                capitao = capitao,
+//                timeId = timeId
             ) ?: JogadorEntity(
                 nome = nome,
                 posicao = posicao,
                 idade = idade,
-                capitao = capitao
+                capitao = capitao,
+//                timeId = timeId
             )
         }
 
@@ -47,7 +50,8 @@ class JogadorRepositoryImpl(
                     nome = jogador.nome,
                     posicao = jogador.posicao,
                     idade = jogador.idade,
-                    capitao = jogador.capitao
+                    capitao = jogador.capitao,
+//                    timeId = jogador.timeId
                 )
             }
         }
@@ -60,7 +64,8 @@ class JogadorRepositoryImpl(
                 nome = jogador.nome,
                 posicao = jogador.posicao,
                 idade = jogador.idade,
-                capitao = jogador.capitao
+                capitao = jogador.capitao,
+//                timeId = jogador.timeId
             )
         }
     }

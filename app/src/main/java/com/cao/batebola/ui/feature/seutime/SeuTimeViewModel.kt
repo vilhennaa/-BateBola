@@ -3,7 +3,7 @@ package com.cao.batebola.ui.feature.seutime
 import AddJogadorRoute
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cao.batebola.dados.repository.JogadorRepository
+import com.cao.batebola.dados.repository.Jogador.JogadorRepository
 import com.cao.batebola.ui.UiEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
