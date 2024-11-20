@@ -20,15 +20,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.navArgument
 import androidx.navigation.toRoute
+import com.cao.batebola.ui.ViewModel.PartidaViewModel
 import com.cao.batebola.ui.feature.addjogador.AddJogadorScreen
 import com.cao.batebola.ui.feature.addtime.AddTimeScreen
 import com.cao.batebola.ui.feature.seutime.SeuTimeScreen
 import com.cao.batebola.ui.feature.seutime.ThirdScreen
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
-import kotlin.toString
 
 object Routes {
     const val TELA_UM = "tela_um"
@@ -48,7 +50,9 @@ data class AddJogadorRoute(val id: Long? = null)
 data class AddTimeRoute(val id: Long? = null)
 
 @Composable
-fun BateBolaNavHost() {
+fun BateBolaNavHost(
+    viewModel: PartidaViewModel
+) {
     val navController = rememberNavController()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
 
@@ -66,7 +70,7 @@ fun BateBolaNavHost() {
                     MainScreen(drawerState)
                 }
                 composable(Routes.TELA_DOIS) {
-                    SecondScreeen(navController, drawerState)
+                    ListarPartidas(navController,drawerState,viewModel)
                 }
                 composable(Routes.TELA_TRES) {
                     ThirdScreen(drawerState, navController)
@@ -97,6 +101,22 @@ fun BateBolaNavHost() {
                         navigateBack = {
                             navController.popBackStack()
                         }
+                    )
+                }
+                composable("createPartida") {
+                    CreatePartidaScreen(navController, viewModel)
+                }
+                composable(
+                    route = "editar_partida/{partidaId}",
+                    arguments = listOf(navArgument("partidaId") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    // Recupera o ID da partida passado pela rota
+                    val partidaId = backStackEntry.arguments?.getString("partidaId") ?: ""
+                    EditarPartidaScreen(
+                        navController = navController,
+                        viewModel = viewModel,
+                        partidaId = partidaId,
+                        drawerState = drawerState
                     )
                 }
             }

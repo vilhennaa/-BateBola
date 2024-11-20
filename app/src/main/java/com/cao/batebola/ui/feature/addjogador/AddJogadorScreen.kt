@@ -35,7 +35,7 @@ fun AddJogadorScreen(
 ) {
     val context = LocalContext.current.applicationContext
     val database = BateBolaDatabaseProvider.provide(context)
-    val repository = JogadorRepositoryImpl(dao = database.jogadorDao)
+    val repository = JogadorRepositoryImpl(dao = database.jogadorDao())
 
     val viewModel = viewModel<AddJogadorViewModel> {
         AddJogadorViewModel(
