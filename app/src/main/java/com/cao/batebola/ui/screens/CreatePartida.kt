@@ -44,10 +44,10 @@ fun CreatePartidaScreen(navController: NavController, viewModel: PartidaViewMode
     var partidaLocal by remember { mutableStateOf("") }
 
     Column(modifier = Modifier.padding(16.dp)) {
-
+        Spacer(modifier = Modifier.padding(8.dp))
         // Botão de Voltar
         IconButton(
-            onClick = { navController.navigate(Routes.TELA_DOIS)},
+            onClick = { navController.popBackStack() },
             modifier = Modifier.padding(bottom = 16.dp)
         ) {
             androidx.compose.material3.Icon(
