@@ -1,15 +1,22 @@
+package com.cao.batebola.dados.repository.Jogador
 
-import com.cao.batebola.dados.model.Jogador
+import com.cao.batebola.domain.Jogador
 import kotlinx.coroutines.flow.Flow
 
+interface JogadorRepository {
 
-interface JogadorRepository{
+    suspend fun insertJogador(
+        nome: String,
+        posicao: String,
+        idade: Int,
+        capitao: Boolean,
+        id: Long,
+//        timeId: Long
+    )
 
-    fun listarJogadores(): Flow<List<Jogador>>
+    suspend fun deleteJogador(id: Long)
 
-    suspend fun buscarJogadorPorId(jogadorId: Int): Jogador?
+    fun getAllJogadores(): Flow<List<Jogador>>
 
-    suspend fun gravarJogador(jogador: Jogador)
-
-    suspend fun excluirJogador(jogador: Jogador)
+    suspend fun getJogadorById(id: Long): Jogador?
 }
