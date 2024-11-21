@@ -83,7 +83,8 @@ fun BateBolaNavHost(
                         id = it.toRoute<AddTimeRoute>()?.id,
                         navigateBack = {
                             navController.popBackStack()
-                        }
+                        },
+                        drawerState = drawerState
                     )
                 }
                 composable<SeuTimeRoute> {
