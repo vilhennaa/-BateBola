@@ -5,10 +5,13 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "partidas")
 data class Partida(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true)
+    var id: Int? = null,
     val titulo: String,
     val timeA: String,
     val timeB: String,
     val data: String,
     val local: String
-)
+){
+    constructor() : this(null, "", "", "","","")
+}

@@ -1,6 +1,7 @@
 package com.cao.batebola
 
 import BateBolaNavHost
+import RemotePartidaRepository
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,14 +19,22 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        val isLocal = false
         val db = provide(this)
 
-        val LocalPartidaRepository = LocalPartidaRepository(db.partidaDao())
+        val localPartidaRepository = LocalPartidaRepository(db.partidaDao())
+        val remotePartidaRepository = RemotePartidaRepository()
 
-        val partidaViewModel = PartidaViewModel(LocalPartidaRepository)
+        val partidaViewModel: PartidaViewModel
+
+
+        if(isLocal){
+            partidaViewModel = PartidaViewModel(localPartidaRepository)
+        }else{
+            partidaViewModel = PartidaViewModel(remotePartidaRepository)
+        }
 
         setContent {
-
 
                 BateBolaTheme {
                     BateBolaNavHost(partidaViewModel)

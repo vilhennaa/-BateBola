@@ -11,7 +11,7 @@ import com.cao.batebola.dados.entity.Jogador.JogadorEntity
 import com.cao.batebola.dados.entity.Partida.Partida
 import com.cao.batebola.dados.entity.Time.TimeEntity
 
-@Database(entities = [JogadorEntity::class, TimeEntity::class, Partida::class], version = 4)
+@Database(entities = [JogadorEntity::class, TimeEntity::class, Partida::class], version = 5)
 abstract class BateBolaDatabase : RoomDatabase() {
     abstract fun jogadorDao(): JogadorDao
     abstract val timeDao: TimeDao

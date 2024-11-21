@@ -17,7 +17,7 @@ interface PartidaRepository {
 
     suspend fun deletarPartida(partida: Partida)
 
-    suspend fun getPartidaById(id: String): Partida?
+    suspend fun getPartidaById(id: Int): Partida?
 
 
 }

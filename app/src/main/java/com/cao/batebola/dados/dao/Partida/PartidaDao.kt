@@ -7,11 +7,12 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PartidaDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+
+    @Upsert
     suspend fun inserirPartida(partida: Partida)
 
     @Query("SELECT * FROM partidas WHERE id = :id LIMIT 1")
-    suspend fun getPartidaById(id: String): Partida?
+    suspend fun getPartidaById(id: Int): Partida?
 
     @Query("SELECT * FROM partidas")
      fun listarPartidas(): Flow<List<Partida>>

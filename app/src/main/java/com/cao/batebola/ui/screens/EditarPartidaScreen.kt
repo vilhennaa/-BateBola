@@ -30,7 +30,7 @@ import com.cao.batebola.ui.screens.utils.TopBar
 fun EditarPartidaScreen(
     navController: NavHostController,
     viewModel: PartidaViewModel,
-    partidaId: String,
+    partidaId: Int,
     drawerState: DrawerState
 ) {
     // Variável de estado para armazenar a partida

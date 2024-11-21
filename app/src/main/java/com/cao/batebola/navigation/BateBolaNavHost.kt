@@ -115,7 +115,7 @@ fun BateBolaNavHost(
                     EditarPartidaScreen(
                         navController = navController,
                         viewModel = viewModel,
-                        partidaId = partidaId,
+                        partidaId = partidaId.toInt(),
                         drawerState = drawerState
                     )
                 }

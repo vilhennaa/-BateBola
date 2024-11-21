@@ -36,7 +36,7 @@ class PartidaViewModel (
                 }
             }
         }
-        suspend fun getPartidaById(id:String): Partida?{
+        suspend fun getPartidaById(id:Int): Partida?{
             return repository.getPartidaById(id)
         }
 
