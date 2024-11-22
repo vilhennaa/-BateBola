@@ -7,30 +7,29 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
-class RemotePartidaRepository(): PartidaRepository{
+class RemotePartidaRepository(): PartidaRepository {
 
     val db = FirebaseFirestore.getInstance()
-    val partidaColletion = db.collection("partida")
+    val partidaCollection = db.collection("partida")
 
     override fun listarPartidas(): Flow<List<Partida>> = callbackFlow {
-        val listener = partidaColletion.addSnapshotListener{
-                dados, erros ->
-            if(erros != null){
-                close(erros)
+        val listener = partidaCollection.addSnapshotListener { dados, erro ->
+            if (erro != null) {
+                close(erro)
                 return@addSnapshotListener
             }
-            if(dados != null){
+            if (dados != null) {
                 val partidas = dados.documents.mapNotNull { dado ->
                     dado.toObject(Partida::class.java)
                 }
                 trySend(partidas).isSuccess
             }
         }
-        awaitClose{listener}
+        awaitClose { listener }
     }
 
-    suspend fun getId(): Int{
-        val dados = partidaColletion.get().await()
+    suspend fun getId(): Int {
+        val dados = partidaCollection.get().await()
         val maxId = dados.documents.mapNotNull {
             it.getLong("id")?.toInt()
         }.maxOrNull() ?: 0
@@ -38,22 +37,22 @@ class RemotePartidaRepository(): PartidaRepository{
     }
 
     override suspend fun getPartidaById(idx: Int): Partida? {
-        val dados = partidaColletion.document(idx.toString()).get().await()
+        val dados = partidaCollection.document(idx.toString()).get().await()
         return dados.toObject(Partida::class.java)
     }
 
     override suspend fun inserirPartida(partida: Partida) {
         val document: DocumentReference
-        if(partida.id == null){
+        if (partida.id == null) {
             partida.id = getId()
-            document = partidaColletion.document(partida.id.toString())
-        }else{
-            document = partidaColletion.document(partida.id.toString())
+            document = partidaCollection.document(partida.id.toString())
+        } else {
+            document = partidaCollection.document(partida.id.toString())
         }
         document.set(partida).await()
     }
 
     override suspend fun deletarPartida(partida: Partida) {
-        partidaColletion.document(partida.id.toString()).delete().await()
+        partidaCollection.document(partida.id.toString()).delete().await()
     }
 }

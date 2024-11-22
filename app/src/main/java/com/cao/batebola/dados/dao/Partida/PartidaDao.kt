@@ -21,4 +21,5 @@ interface PartidaDao {
     suspend fun deletarPartida(partida: Partida)
 
 
+
 }

@@ -41,10 +41,10 @@ fun MainScreen(drawerState: DrawerState) {
                 startDestination = TelaUm.TELA_UM_A_ROUTE
             ) {
                 composable(TelaUm.TELA_UM_A_ROUTE) {
-                    TelaUmA(padding)
+                    LoginScreen(padding)
                 }
                 composable(TelaUm.TELA_UM_B_ROUTE) {
-                    TelaUmB(padding)
+                    CadastroScreen(padding)
                 }
 
             }
