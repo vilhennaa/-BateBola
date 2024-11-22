@@ -1,4 +1,4 @@
-package com.cao.batebola.ui.screens
+package com.cao.batebola.ui.screens.Login_Cadastro
 
 
 import androidx.compose.foundation.layout.size
@@ -29,7 +29,7 @@ object TelaUm {
 }
 
 @Composable
-fun MainScreen(drawerState: DrawerState) {
+fun LoginCadastroNavHost(drawerState: DrawerState) {
 
     val navController = rememberNavController()
 

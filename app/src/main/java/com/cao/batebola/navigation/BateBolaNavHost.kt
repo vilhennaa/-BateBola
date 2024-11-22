@@ -8,7 +8,6 @@ import com.cao.batebola.ui.screens.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Star
@@ -29,6 +28,7 @@ import com.cao.batebola.ui.feature.addjogador.AddJogadorScreen
 import com.cao.batebola.ui.feature.addtime.AddTimeScreen
 import com.cao.batebola.ui.feature.seutime.SeuTimeScreen
 import com.cao.batebola.ui.feature.seutime.ThirdScreen
+import com.cao.batebola.ui.screens.Login_Cadastro.LoginCadastroNavHost
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
@@ -67,7 +67,7 @@ fun BateBolaNavHost(
                 startDestination = Routes.TELA_DOIS
             ) {
                 composable(Routes.TELA_UM) {
-                    MainScreen(drawerState)
+                    LoginCadastroNavHost(drawerState)
                 }
                 composable(Routes.TELA_DOIS) {
                     ListarPartidas(navController,drawerState,viewModel)
@@ -75,9 +75,7 @@ fun BateBolaNavHost(
                 composable(Routes.TELA_TRES) {
                     ThirdScreen(drawerState, navController)
                 }
-                composable(Routes.TELA_PERFIL) {
-                    ProfileScreen(drawerState)
-                }
+
                 composable<AddTimeRoute> {
                     AddTimeScreen(
                         id = it.toRoute<AddTimeRoute>()?.id,
@@ -166,25 +164,7 @@ private fun DrawerContent(
             Text(text = "Login/Cadastro", fontSize = 25.sp, color = getColorTexto(rotaAtual == Routes.TELA_UM))
         }
 
-        TextButton(
-            colors = ButtonDefaults.buttonColors(containerColor = getColorMenu(rotaAtual == AddTimeRoute().toString())),
-            onClick = {
-                navController.navigate(AddTimeRoute())
-                coroutineScope.launch { drawerState.close() }
-            }
-        ) {
-            Icon(
-                imageVector = Icons.Default.DateRange,
-                contentDescription = "Cadastrar Times",
-                modifier = Modifier.size(40.dp),
-                Color.Black
-            )
-            Text(
-                text = "Cadastrar Times",
-                fontSize = 30.sp,
-                color = getColorTexto(rotaAtual == AddTimeRoute().toString())
-            )
-        }
+
 
 
         TextButton(
@@ -198,16 +178,7 @@ private fun DrawerContent(
             Text(text = "Seu time", fontSize = 30.sp, color = getColorTexto(rotaAtual == SeuTimeRoute.toString()))
         }
 
-        TextButton(
-            colors = ButtonDefaults.buttonColors(containerColor = getColorMenu(rotaAtual == Routes.TELA_PERFIL)),
-            onClick = {
-                navController.navigate(Routes.TELA_PERFIL)
-                coroutineScope.launch { drawerState.close() }
-            }
-        ) {
-            Icon(imageVector = Icons.Default.DateRange, contentDescription = "Agenda", modifier = Modifier.size(40.dp), Color.Black)
-            Text(text = "Agenda", fontSize = 30.sp, color = getColorTexto(rotaAtual == Routes.TELA_PERFIL))
-        }
+
     }
 }
 

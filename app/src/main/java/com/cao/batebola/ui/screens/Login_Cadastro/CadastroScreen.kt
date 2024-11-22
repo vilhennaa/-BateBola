@@ -1,4 +1,4 @@
-package com.cao.batebola.ui.screens
+package com.cao.batebola.ui.screens.Login_Cadastro
 
 
 import androidx.compose.foundation.layout.Column
@@ -25,22 +25,35 @@ import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(padding: PaddingValues) {
+fun CadastroScreen(padding: PaddingValues) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
+
+        ) {
+        val cpfState = remember { mutableStateOf("") }
         val usernameState = remember { mutableStateOf("") }
         val passwordState = remember { mutableStateOf("") }
 
+
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = "Login",
+            text = "Cadastro",
             Modifier.padding(padding),
             fontSize = 40.sp
         )
         Text(
-            text = "Nome de usuário:",
+            text = "CPF:",
+            fontSize = 20.sp
+        )
+        TextField(
+            value = cpfState.value,
+            onValueChange = { cpfState.value = it },
+            label = { Text("CPF") }
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(
+            text = "Nome de usuario:",
             fontSize = 20.sp
         )
         TextField(
@@ -65,13 +78,15 @@ fun LoginScreen(padding: PaddingValues) {
                 containerColor = Color(0xFF04330A)
             ),
             onClick = {
-                // Ação do botão de login
+
             }) {
 
             Text(
-                text = "ENTRAR", fontSize = 30.sp,
+                text = "CADASTRAR", fontSize = 30.sp,
                 color = Color.White
             )
         }
+
+
     }
 }
